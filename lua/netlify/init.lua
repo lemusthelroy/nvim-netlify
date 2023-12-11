@@ -44,7 +44,11 @@ function M.show_netlify_dashboard()
 end
 
 function M.setup()
-	require("netlify.keymaps")
+	-- Map <leader>nt to show the Dashboard
+	vim.api.nvim_set_keymap("n", "<leader>nt", ":lua require('netlify').show_netlify_dashboard()<CR>", {
+		noremap = true,
+		silent = true,
+	})
 end
 
 return M
