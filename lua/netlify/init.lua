@@ -1,17 +1,9 @@
 local M = {}
 
 function M.show_netlify_dashboard()
-	
-	local get_sites_command = "netlify sites:list --json"
-	-- local sites = vim.fn.system(get_sites_command)
-	-- local sites_json = vim.fn.json_decode(sites)
-	-- local sites_list = sites_json["sites"]
-	-- local sites_names = {}
-	-- for _, site in ipairs(sites_list) do
-	-- 	table.insert(sites_names, site["name"])
-	-- end
 	local buf = vim.api.nvim_create_buf(false, true)
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, { "Welcome to Netlify Dashboard" })
+	local get_sites_command = "netlify sites:list --json"
 
 
 	local win = vim.api.nvim_open_win(buf, true, {
@@ -24,12 +16,27 @@ function M.show_netlify_dashboard()
 		title = "Netlify Dashboard",
 	})
 
-	vim.api.nvim_buf_set_keymap(buf, "n", "q", ":q<CR>", { noremap = true, silent = true })
-	vim.api.nvim_buf_set_keymap(buf, "n", "<CR>", ":lua require('netlify').open_site()<CR>", { noremap = true, silent = true })
+	vim.api.nvim_win_set_option(win, "winhl", "Normal:Normal")
+	vim.api.nvim_win_set_option(win, "wrap", false)
+	vim.api.nvim_win_set_option(win, "number", false)
+	vim.api.nvim_win_set_option(win, "relativenumber", false)
+	vim.api.nvim_win_set_option(win, "cursorline", false)
+	vim.api.nvim_win_set_option(win, "cursorcolumn", false)
+	vim.api.nvim_win_set_option(win, "signcolumn", "no")
+	vim.api.nvim_win_set_option(win, "foldenable", false)
+	vim.api.nvim_win_set_option(win, "foldcolumn", "0")
+	vim.api.nvim_win_set_option(win, "conceallevel", 0)
+	vim.api.nvim_win_set_option(win, "scrolloff", 0)
+	vim.api.nvim_win_set_option(win, "sidescrolloff", 0)
+	vim.api.nvim_win_set_option(win, "colorcolumn", "")
+	vim.api.nvim_win_set_option(win, "winhighlight", "Normal:Normal")
+	vim.api.nvim_win_set_option(win, "winblend", 0)
+	vim.api.nvim_win_set_option(win, "winfixheight", false)
+	vim.api.nvim_win_set_option(win, "winfixwidth", false)
+
 	vim.api.nvim_command(
 		"autocmd WinLeave <buffer=" .. buf .. "> ++once lua vim.api.nvim_win_close(" .. win .. ", true)"
 	)
-
 end
 
 function M.setup()
