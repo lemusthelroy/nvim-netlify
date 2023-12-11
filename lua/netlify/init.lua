@@ -35,8 +35,6 @@ function M.show_netlify_dashboard()
 	vim.api.nvim_win_set_option(win, "winblend", 0)
 	vim.api.nvim_win_set_option(win, "winfixheight", false)
 	vim.api.nvim_win_set_option(win, "winfixwidth", false)
-	vim.api.nvim_win_set_option(win, "winminheight", 0)
-	vim.api.nvim_win_set_option(win, "winminwidth", 0)
 
 	vim.api.nvim_command(
 		"autocmd WinLeave <buffer=" .. buf .. "> ++once lua vim.api.nvim_win_close(" .. win .. ", true)"
