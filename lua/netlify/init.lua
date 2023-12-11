@@ -36,6 +36,19 @@ function M.show_netlify_dashboard()
 	vim.api.nvim_command(
 		"autocmd WinLeave <buffer=" .. buf .. "> ++once lua vim.api.nvim_win_close(" .. win .. ", true)"
 	)
+
+	-- Call netlify api with netlify-cli to get the list of sites and display them in the buffer
+	
+	local get_sites_command = "netlify sites:list --json"
+	local sites = vim.fn.system(get_sites_command)
+	local sites_json = vim.fn.json_decode(sites)
+	local sites_list = sites_json["sites"]
+	local sites_names = {}
+	for _, site in ipairs(sites_list) do
+		table.insert(sites_names, site["name"])
+	end
+	vim.api.nvim_buf_set_lines(buf, 0, -1, false, sites_names)
+
 end
 
 function M.setup()
