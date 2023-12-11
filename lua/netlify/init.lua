@@ -3,13 +3,13 @@ local M = {}
 function M.show_netlify_dashboard()
 	
 	local get_sites_command = "netlify sites:list --json"
-	local sites = vim.fn.system(get_sites_command)
-	local sites_json = vim.fn.json_decode(sites)
-	local sites_list = sites_json["sites"]
-	local sites_names = {}
-	for _, site in ipairs(sites_list) do
-		table.insert(sites_names, site["name"])
-	end
+	-- local sites = vim.fn.system(get_sites_command)
+	-- local sites_json = vim.fn.json_decode(sites)
+	-- local sites_list = sites_json["sites"]
+	-- local sites_names = {}
+	-- for _, site in ipairs(sites_list) do
+	-- 	table.insert(sites_names, site["name"])
+	-- end
 	local buf = vim.api.nvim_create_buf(false, true)
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, { "Welcome to Netlify Dashboard" })
 
