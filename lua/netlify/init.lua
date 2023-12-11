@@ -4,9 +4,12 @@ function M.show_netlify_dashboard()
 	local buf = vim.api.nvim_create_buf(false, true)
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, { "Welcome to Netlify Dashboard" })
 	local get_sites_command = "!netlify sites:list --json"
-	local sites = vim.api.nvim_command(get_sites_command)
-	vim.api.nvim_buf_set_lines(buf, 1, -1, false, { sites })
+	-- Execute the command and capture the output
+	local sites = vim.fn.system(get_sites_command)
 
+
+	-- Set the lines of the buffer to the output of the command
+	vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(sites, "\n"))
 	local win = vim.api.nvim_open_win(buf, true, {
 		relative = "editor",
 		width = 40,
