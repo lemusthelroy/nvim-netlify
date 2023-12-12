@@ -14,7 +14,7 @@ function M.show_netlify_dashboard()
 		vim.api.nvim_buf_set_lines(buf, 0, -1, false, { "No Netlify site found" })
 		return
 	end
-	local siteId = statusJson["siteId"]
+	local siteId = statusJson["siteData"]["site-id"]
 
 	local siteResponse = vim.fn.system("netlify api getSite --data '{\"siteId\": \"" .. siteId .. "\"}'")
 
@@ -27,7 +27,7 @@ function M.show_netlify_dashboard()
 
 	local siteName = siteJson["name"]
 	local siteUrl = siteJson["url"]
-	local siteAdminUrl = siteJson["adminUrl"]
+	local siteAdminUrl = siteJson['published_deploy']["admin_url"]
 
 	local status = "Site: " .. siteName .. "\n"
 	status = status .. "URL: " .. siteUrl .. "\n"
